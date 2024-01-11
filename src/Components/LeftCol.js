@@ -1,14 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Styles/LeftCol.css';
 import TwitterLogoX from './TwitterLogoX';
 import profileContext from '../CONTEXT/Context/profileContext';
 
 export default function LeftCol() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    const [profileImage, setProfileImage] = useState('');
+    const [username, setUsername] = useState('');
     const context = useContext(profileContext);
     const { getProfile } = context;
-    const profileImage = localStorage.getItem('profile-img');
-    const username = localStorage.getItem('username');
+
+    // Get LoggedIn User
+    const getUserProfile = async () => {
+        const response = await fetch(`${apiUrl}/api/user/get-a-user/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': token
+            },
+        });
+        const json = await response.json();
+        setProfileImage(json[0].image);
+        setUsername(json[0].username);
+    }
+
 
     // Logout
     const handleLogout = () => {
@@ -16,6 +33,9 @@ export default function LeftCol() {
         window.location.reload();
     }
 
+    useEffect(() => {
+        getUserProfile();
+    }, []);
 
     return (
         <>
@@ -136,7 +156,7 @@ export default function LeftCol() {
                         <div className="col ">
                             <div className="row logout-btn">
                                 <div className="col-3 ">
-                                <img className='rounded-circle ' width={45} height={45} src={profileImage} alt='img' />
+                                    <img className='rounded-circle ' width={45} height={45} src={profileImage} alt='img' />
                                 </div>
                                 <div className="col-7">
                                     <div className="row">
