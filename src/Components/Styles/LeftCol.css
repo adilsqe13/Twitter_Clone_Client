@@ -1,0 +1,105 @@
+.p-left {
+  padding-left: 147px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
+.home {
+  font-size: 20px;
+}
+
+.left-box-menu {
+  font-weight: 400;
+  font-size: 21px;
+}
+
+.side-bar-btn {
+  text-decoration: none;
+  color: rgb(238, 236, 236);
+}
+
+.side-bar-btn-style {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 51px;
+  border-radius: 30px;
+}
+
+.side-bar-btn-style:hover {
+  background-color: rgb(31, 30, 30);
+}
+
+.post-btn {
+  width: 160px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: rgb(18, 167, 237);
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  border: 1px solid rgb(18, 167, 237);
+}
+
+.post-btn:hover {
+  background-color: rgb(19, 155, 218);
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+  width: 240px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: transparent;
+}
+
+.logout-btn:hover {
+  background-color: rgb(31, 30, 30);
+}
+
+.position-sticky-55 {
+  position: sticky;
+  top: 55px;
+}
+
+.border-right {
+  border-right: 1px solid rgb(114, 114, 114);
+}
+
+
+/* Media Query */
+@media (max-width: 1280px) {
+  .p-left {
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 750px) {
+  .dna750 {
+    display: none;
+  }
+
+  .p-left {
+    padding-left: 80px;
+  }
+}
+
+@media (min-width: 750px) {
+  .logout-icon {
+    display: none;
+  }
+}
+
+@media (max-width: 575px) {
+  .dna575 {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .dna991 {
+    display: none;
+  }
+}

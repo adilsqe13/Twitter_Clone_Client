@@ -1,0 +1,13 @@
+.vpi {
+    position: absolute;
+    top: 0px;
+    left: 17px;
+    border: 4px solid black;
+}
+
+.epi {
+    position: absolute;
+    top: 0px;
+    left: 25px;
+    border: 4px solid black;
+}

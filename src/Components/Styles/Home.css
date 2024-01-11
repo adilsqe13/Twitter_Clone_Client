@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Libre+Franklin:wght@800&family=Roboto:wght@300&display=swap');
+
+
+/* Media Query */
+@media (max-width: 410px) {
+    .adjust-img-width {
+        width: 300px;
+    }
+}
+
+@media (max-width: 350px) {
+    .adjust-img-width {
+        width: 270px;
+    }
+}
+
+@media (max-width: 370px) {
+    .fsa365 {
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 360px) and (max-width: 375px) {
+    .wa360 {
+        width: 360px;
+    }
+}
+
+@media (min-width: 575px) {
+    .col-right {
+        padding-left: 95px;
+    }
+}
+
+@media (max-width: 575px) {
+    .col-right {
+        padding-left: 0px;
+    }
+}
+
+@media (max-width: 360px) {
+    .footer {
+        display: none;
+    }
+}
+
+@media (min-width: 360px) {
+    .footer {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 575px) {
+    .big-logo {
+        display: none;
+    }
+}
+
+@media (min-width: 575px) {
+    .big-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 575px) {
+    .small-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 575px) {
+    .small-logo {
+        display: none;
+    }
+}
+
+@media (min-width: 575px) {
+    .navbar {
+        display: none;
+    }
+}
+
+
+.heading {
+    margin-top: 90px;
+}
+
+.bi-twitter-x {
+    color: rgb(238, 236, 236);
+}
+
+.col-right h1 {
+    font-size: 65px;
+    text-align: left;
+    font-family: 'Libre Franklin', sans-serif;
+    letter-spacing: 4px;
+}
+
+.jn {
+    margin-top: 37px;
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+.signUpWithGA {
+    width: 36%;
+    min-width: 190px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: white;
+    border: 1px solid white;
+    font-weight: 500;
+
+}
+
+.signInBtn {
+    width: 36%;
+    min-width: 190px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: transparent;
+    color: rgb(18, 167, 237);
+    font-family: 'Libre Franklin', sans-serif;
+    border: 1px solid rgb(190, 230, 249);
+}
+
+.signInBtn:hover {
+    background-color: rgb(17, 24, 28);
+}
+
+.createAccountBtn {
+    width: 36%;
+    min-width: 190px;
+    height: 40px;
+    border-radius: 30px;
+    background-color: rgb(18, 167, 237);
+    color: white;
+    font-weight: 500;
+    border: 1px solid rgb(18, 167, 237);
+}
+
+.createAccountBtn:hover {
+    background-color: rgb(20, 159, 223);
+}
+
+.createAccountCotation {
+    padding-left: 5px;
+    margin-top: 7px;
+    font-size: 12px;
+    color: rgb(123, 121, 121);
+
+}
+
+.createAccountCotation a {
+    text-decoration: none;
+    color: rgb(18, 167, 237);
+}
+
+.createAccountCotation a:hover {
+    text-decoration: underline;
+}
+
+.horizontal-line {
+    display: flex;
+    align-items: center;
+    padding-left: 0px;
+}
+
+.horizontal-line::before,
+.horizontal-line::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background-color: #333;
+}
+
+
+.footer {
+    margin-top: 121px;
+
+}
+
+.footer a {
+    text-decoration: none;
+    color: rgb(118, 117, 117);
+    font-size: 13px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.input-post {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+    height: 50px;
+    color: rgb(238, 236, 236);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    font-size: 20px;
+}
+
+.post {
+    width: 70px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: rgb(18, 167, 237);
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid rgb(18, 167, 237);
+}
+
+.post-dropdown {
+    border-radius: 5px;
+}
+
+.post-dropdown:hover {
+    background-color: rgb(8, 8, 8);
+}
+
+.wx-10 {
+    width: 60px;
+}
