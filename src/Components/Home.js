@@ -78,7 +78,7 @@ export default function Home() {
         <>
             <div className="row position-sticky-0 bg-black z-index-90 border-bottom border-secondary">
                 <div className="col home py-3 px-3">
-                    <span>Home</span>
+                    <span>Adil</span>
                 </div>
             </div>
             <div className="row  py-4 border-bottom border-secondary">
