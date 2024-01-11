@@ -38,7 +38,7 @@ export default function Profile() {
       <div className="row h-125 bg-dark z-index-90 "></div>
       <div className="row h-125 z-index-90">
         <div className='col-4 position-relative'>
-          {profile.length !== 0 ? <img className='rounded-circle vpi' width={143} height={143} src={require(`../images/${profile.image}`)} alt='img' />
+          {profile.length !== 0 ? <img className='rounded-circle vpi' width={143} height={143} src={profile.image} alt='img' />
             : 'loading'}
           <div className="row h-72 bg-dark"></div>
           <div className="row h-72 bg-transparent"></div>

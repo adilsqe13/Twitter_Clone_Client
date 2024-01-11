@@ -6,6 +6,7 @@ import profileContext from '../CONTEXT/Context/profileContext';
 import axios from 'axios';
 
 export default function Retweet() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const context1 = useContext(toastContext);
     const context2 = useContext(retweetContext);
     const context3 = useContext(profileContext);
@@ -14,6 +15,7 @@ export default function Retweet() {
     const { setPressEditProfileBtn, profile } = context3;
     const [userCredentials, setuserCredentials] = useState({ name: profile.name, bio: profile.bio, location: profile.location, dob: profile.dob });
     const [image, setImage] = useState(null);
+    const [publicId, setPublicId] = useState('');
     const token = localStorage.getItem('token');
 
 
@@ -25,36 +27,82 @@ export default function Retweet() {
     }
 
     const handleSave = async (e) => {
-        const formData = new FormData();
-        formData.append("image", image);
-        formData.append("name", userCredentials.name);
-        formData.append("location", userCredentials.location);
-        formData.append("dob", userCredentials.dob);
-        formData.append("bio", userCredentials.bio);
 
-
-        await axios.put(
-            "http://localhost:5000/api/user/edit-profile",
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "auth-token": token,
-                },
-            }
-        )
-            .then(response => {
-                if (response.data.success) {
-                    localStorage.setItem('userImage', response.data.image);
-                    window.location.reload();
-                } else {
-                    showToast('Something went wrong', 'danger');
+   // If update including image
+        if (image !== null) {
+            const formData = new FormData();
+            formData.append('file', image);
+            formData.append('upload_preset', 'my-preset');
+            formData.append('cloud_name', 'digcjdyd3');
+            const response = await axios.post(
+                `https://api.cloudinary.com/v1_1/digcjdyd3/image/upload`,
+                formData,
+                {
+                    onUploadProgress: (progressEvent) => {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        // setUploadPercent(percentCompleted + '%')
+                        console.log(percentCompleted);
+                    },
                 }
-            })
-            .catch(error => {
-                console.log(error);
-                showToast('Something went wrong', 'warn');
-            })
+            );
+       
+            localStorage.setItem('userImage', response.data.secure_url);
+            localStorage.setItem('profile-img', response.data.secure_url);
+            await axios.put(
+                `${apiUrl}/api/user/edit-profile`,
+                {
+                    ...userCredentials,
+                    imageUrl: await response.data.secure_url,
+                    public_id: await response.data.public_id,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": token,
+                    },
+                }
+            )
+                .then(response => {
+                    if (response.data.success) {
+                        window.location.reload();
+                    } else {
+                        showToast('Something went wrong', 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    showToast('Something went wrong', 'warn');
+                })
+
+                 // If update not including image
+        } else {
+            await axios.put(
+                `${apiUrl}/api/user/edit-profile`,
+                {
+                    ...userCredentials,
+                    imageUrl: image,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": token,
+                    },
+                }
+            )
+                .then(response => {
+                    if (response.data.success) {
+                        localStorage.setItem('userImage', response.data.image);
+                        window.location.reload();
+                    } else {
+                        showToast('Something went wrong', 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    showToast('Something went wrong', 'warn');
+                })
+        }
+
     }
     return (
         <>
@@ -72,7 +120,7 @@ export default function Retweet() {
                 <div className="row h-72 bg-dark z-index-90"></div>
                 <div className="row h-151 z-index-90">
                     <div className='col-4 position-relative'>
-                        <img className='rounded-circle epi' width={133} height={133} src={require(`../images/${profile.image}`)} alt='img' />
+                        <img className='rounded-circle epi' width={133} height={133} src={profile.image} alt='img' />
                         <div className="row h-72 bg-dark"></div>
                         <div className="row h-72 bg-black"></div>
                     </div>

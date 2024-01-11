@@ -136,7 +136,7 @@ export default function LeftCol() {
                         <div className="col ">
                             <div className="row logout-btn">
                                 <div className="col-3 ">
-                                <img className='rounded-circle ' width={45} height={45} src={require(`../images/${profileImage}`)} alt='img' />
+                                <img className='rounded-circle ' width={45} height={45} src={profileImage} alt='img' />
                                 </div>
                                 <div className="col-7">
                                     <div className="row">

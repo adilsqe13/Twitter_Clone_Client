@@ -11,6 +11,7 @@ import AllRetweets from './AllRetweets';
 
 
 export default function Home() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const context1 = useContext(toastContext);
     const context2 = useContext(retweetContext);
     const context3 = useContext(tweetContext);
@@ -41,7 +42,7 @@ export default function Home() {
         formData.append("profileImage", profile.image);
 
         await axios.post(
-            "http://localhost:5000/api/tweet/post-tweet",
+            `${apiUrl}/api/tweet/post-tweet`,
             formData,
             {
                 headers: {
@@ -82,7 +83,7 @@ export default function Home() {
             </div>
             <div className="row  py-4 border-bottom border-secondary">
                 <div className="col-lg-2 d-flex justify-content-center">
-                    <img className='rounded-circle ' width={55} height={55} src={require(`../images/${profileImage}`)} alt='img' />
+                    <img className='rounded-circle ' width={55} height={55} src={profileImage} alt='img' />
                 </div>
                 <div className="col-lg-10">
                     <div className="row">
@@ -104,7 +105,7 @@ export default function Home() {
                 return (
                     <div key={index} className="container mt-4">
                         <div className="row p-2">
-                            <div className="col-lg-2"><img className='rounded-circle' width={45} height={45} src={require(`../images/${item.userImage}`)} alt='img' /></div>
+                            <div className="col-lg-2"><img className='rounded-circle' width={45} height={45} src={item.userImage} alt='img' /></div>
                             <div className="col-lg-9 bold fs-5">
                                 <div className="row"><a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'><span>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
                                 <div className="row"><span className='fs-6 text-secondary bold-100'>Posted on {item.date.slice(0, 10)}</span></div>
@@ -127,7 +128,7 @@ export default function Home() {
                             <div className="card-body">
                                 <p className="card-text fs-5">{item.content}</p>
                             </div>
-                            {item.image && <img className='card-img-top rounded-3' src={require(`../images/${item.image}`)} alt='img' />}
+                            {item.image && <img className='card-img-top rounded-3' src={item.image} alt='img' />}
                         </div>
                         <div className="row mt-2">
 

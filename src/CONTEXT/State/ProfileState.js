@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import profileContext from '../Context/profileContext';
 
 export default function ToastState(props) {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('token');
     const [profile, setProfile] = useState([]);
     const [userTweets, setUserTweets] = useState([]);
@@ -10,7 +11,7 @@ export default function ToastState(props) {
     const getProfile = async (userId) => {
         try {
             localStorage.setItem('profile-Id', userId);
-            const response = await fetch(`http://localhost:5000/api/user/get-a-user/${userId}`, {
+            const response = await fetch(`${apiUrl}/api/user/get-a-user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,7 +27,7 @@ export default function ToastState(props) {
 
     const getUserTweets = async (userId) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/tweet/get-user-tweets/${userId}`, {
+            const response = await fetch(`${apiUrl}/api/tweet/get-user-tweets/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

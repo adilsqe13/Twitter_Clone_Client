@@ -18,37 +18,55 @@ export default function SignupPage(props) {
     });
 
     const handleSignup = async (e) => {
+        const apiUrl = process.env.REACT_APP_API_URL;
+
         const formData = new FormData();
-        formData.append("image", image);
-        formData.append("name", userCredentials.name);
-        formData.append("username", userCredentials.username);
-        formData.append("email", userCredentials.email);
-        formData.append("password", userCredentials.password);
-        formData.append("location", userCredentials.location);
+        formData.append('file', image);
+        formData.append('upload_preset', 'my-preset'); 
+        formData.append('cloud_name', 'digcjdyd3');
 
-
-        await axios.post(
-            "http://localhost:5000/api/auth/user/signup",
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            }
-        )
-            .then(response => {
-                if (response.data.success) {
-                    localStorage.setItem('token', response.data.authToken);
-                    localStorage.setItem('profile-img', response.data.image);
-                    localStorage.setItem('userId', response.data.userId);
-                    localStorage.setItem('username', response.data.username);
-                    window.location.reload();
+        try {
+            const response = await axios.post(
+                `https://api.cloudinary.com/v1_1/digcjdyd3/image/upload`, 
+                formData,
+                {
+                    onUploadProgress: (progressEvent) => {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        // setUploadPercent(percentCompleted + '%')
+                        console.log(percentCompleted);
+                    },
                 }
-            })
-            .catch(error => {
-                console.log(error);
-                showToast('Something went wrong', 'warn');
-            })
+            );
+            const public_id = await response.data.public_id;
+            await axios.post(
+                `${apiUrl}/api/auth/user/signup`,
+                {
+                    ...userCredentials,
+                    imageUrl: response.data.secure_url,
+                    public_id: public_id,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            )
+                .then(response => {
+                    if (response.data.success) {
+                        localStorage.setItem('token', response.data.authToken);
+                        localStorage.setItem('profile-img', response.data.image);
+                        localStorage.setItem('userId', response.data.userId);
+                        localStorage.setItem('username', response.data.username);
+                        window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    showToast('Something went wrong', 'warn');
+                })
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const onChange = (e) => {

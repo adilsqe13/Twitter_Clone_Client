@@ -28,7 +28,7 @@ export default function AllUserTweets() {
                 return (
                     <div key={index} className="container mt-4">
                         <div className="row p-2">
-                            <div className="col-lg-2"><img className='rounded-circle ' width={45} height={45} src={require(`../images/${item.userImage}`)} alt='img' /></div>
+                            <div className="col-lg-2"><img className='rounded-circle ' width={45} height={45} src={item.userImage} alt='img' /></div>
                             <div className="col-lg-9 bold fs-5">
                                 <div className="row"><a href='/profile' onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light'><span>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
                                 <div className="row"><span className='fs-6 text-secondary bold-100'>Posted on {item.date.slice(0, 10)}</span></div>
@@ -50,7 +50,7 @@ export default function AllUserTweets() {
                             <div className="card-body">
                                 <p className="card-text fs-5">{item.content}</p>
                             </div>
-                            {item.image && <img className='card-img-top rounded-3' src={require(`../images/${item.image}`)} alt='img' />}
+                            {item.image && <img className='card-img-top rounded-3' src={item.image} alt='img' />}
                         </div>
                         <div className="row mt-2">
 

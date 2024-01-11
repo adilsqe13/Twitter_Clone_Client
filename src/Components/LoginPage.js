@@ -4,12 +4,13 @@ import TwitterLogoX from './TwitterLogoX';
 import toastContext from '../CONTEXT/Context/toastContext';
 
 export default function LoginPage(props) {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const context = useContext(toastContext);
     const { showToast } = context;
     const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
     const handleLogin = async (e) => {
 
-        const response = await fetch('http://localhost:5000/api/auth/user/login', {
+        const response = await fetch(`${apiUrl}/api/auth/user/login`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

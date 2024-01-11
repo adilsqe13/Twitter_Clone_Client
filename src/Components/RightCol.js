@@ -3,6 +3,7 @@ import './Styles/RightCol.css';
 import profileContext from '../CONTEXT/Context/profileContext';
 
 export default function RightCol() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const { getProfile } = useContext(profileContext);
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
@@ -11,7 +12,7 @@ export default function RightCol() {
     //Get All Users
     const getAllUsers = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/user/get-all-users', {
+            const response = await fetch(`${apiUrl}/api/user/get-all-users`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json"
@@ -46,7 +47,7 @@ export default function RightCol() {
                 });
                 setAllUsers(updatedUsers);
             }
-            const response = await fetch(`http://localhost:5000/api/user/following/${followingId}`, {
+            const response = await fetch(`${apiUrl}/api/user/following/${followingId}`, {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",
@@ -88,7 +89,7 @@ export default function RightCol() {
                             return (
                                 <div key={index} className="row mt-3 bg-black p-2 rounded-4">
                                     <div className="col-3 dfjcac">
-                                        <img className='rounded-circle ' width={45} height={45} src={require(`../images/${item.image}`)} alt='img' />
+                                        <img className='rounded-circle ' width={45} height={45} src={item.image} alt='img' />
                                     </div>
                                     <div className="col-5">
                                         <a onClick={() => { getProfile(item._id) }} href='/profile' className='text-decoration-none text-light'><div className="row bold">{item.name}</div></a>

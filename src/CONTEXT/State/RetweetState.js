@@ -4,6 +4,7 @@ import tweetContext from '../Context/tweetContext';
 import profileContext from '../Context/profileContext';
 
 export default function ToastState(props) {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem('token');
   const { allTweets, setAllTweets } = useContext(tweetContext);
   const { userTweets, setUserTweets } = useContext(profileContext);
@@ -15,7 +16,7 @@ export default function ToastState(props) {
   //Click Retweet Button
   const clickRetweetBtn = async(tweetId) =>{
     try {
-      const response = await fetch(`http://localhost:5000/api/tweet/get-tweet-details/${tweetId}`, {
+      const response = await fetch(`${apiUrl}/api/tweet/get-tweet-details/${tweetId}`, {
         method: 'GET',
         headers: {
           'Content-Type' : 'application/json',
@@ -34,7 +35,7 @@ export default function ToastState(props) {
   //Retweet Repost
 const retweetRepost = async (tweetId, retweetId) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/retweet/retweet-repost`, {
+        const response = await fetch(`${apiUrl}/api/retweet/retweet-repost`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -69,7 +70,7 @@ const deleteRetweet = async (tweetId, retweetId, index) => {
           setAllTweets(updatedAllTweets);
           setUserTweets(updatedUserTweets);
 
-        await fetch('http://localhost:5000/api/retweet/delete-retweet', {
+        await fetch(`${apiUrl}/api/retweet/delete-retweet`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",

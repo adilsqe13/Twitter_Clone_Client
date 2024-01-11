@@ -22,7 +22,7 @@ export default function AllRetweets(props) {
                 return (
                     <div key={index} className="container mt-2 rounded-3 border-secondary box-shadow-light-0 retweets-bg-clr">
                         <div className="row p-2">
-                            <div className="col-lg-2"><img className='rounded-circle ' width={40} height={40} src={require(`../images/${item.profileImage}`)} alt='img' /></div>
+                            <div className="col-lg-2"><img className='rounded-circle ' width={40} height={40} src={item.profileImage} alt='img' /></div>
                             <div className="col-lg-9 bold fs-6">
                                 <div className="row"><a href='/profile' onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light'><span className='text-black bolder fs-6'>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
                                 <span className='text-dark'>Replying to&nbsp;<a onClick={() => { getProfile(tweet.userId) }} href='/profile' className='text-primary bolder text-decoration-none'>@{tweet.username}</a></span>
@@ -47,7 +47,7 @@ export default function AllRetweets(props) {
                             <div className="row">
                                 <div className="col-2"></div>
                                 <div className="col-10">
-                                    {item.image && <img className='card-image-top rounded-3 mt-2' width={150} height={200} src={require(`../images/${item.image}`)} alt='img' />}
+                                    {item.image && <img className='card-image-top rounded-3 mt-2' width={150} height={200} src={item.image} alt='img' />}
                                 </div>
                             </div>
                         </div>

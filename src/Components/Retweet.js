@@ -6,6 +6,7 @@ import toastContext from '../CONTEXT/Context/toastContext';
 import profileContext from '../CONTEXT/Context/profileContext';
 
 export default function Retweet() {
+    const apiUrl = process.env.REACT_APP_API_URL;
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
     const context1 = useContext(toastContext);
@@ -33,7 +34,7 @@ const handleReply = async () => {
     formData.append("tweetId", tweet._id);
 
     await axios.post(
-        `http://localhost:5000/api/tweet/retweet`,
+        `${apiUrl}/api/tweet/retweet`,
         formData,
         {
             headers: {
@@ -71,7 +72,7 @@ useEffect(()=>{
 
                 <div className="row mt-3 bg-black p-2 rounded-4">
                     <div className="col-3 dfjcac">
-                        <img className='rounded-circle ' width={55} height={55} src={require(`../images/${retweetProfilePic}`)} alt='img' />
+                        <img className='rounded-circle ' width={55} height={55} src={retweetProfilePic} alt='img' />
                     </div>
                     <div className="col-9">
                         <div className="row bold">{tweetUser.name}</div>
@@ -95,7 +96,7 @@ useEffect(()=>{
 
                 <div className="row  py-4">
                     <div className="col-3 d-flex justify-content-center">
-                        <img className='rounded-circle ' width={55} height={55} src={require(`../images/${profile.image}`)} alt='img' />
+                        <img className='rounded-circle ' width={55} height={55} src={profile.image} alt='img' />
                     </div>
                     <div className="col-9">
                         <div className="row">

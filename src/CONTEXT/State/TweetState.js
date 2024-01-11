@@ -3,6 +3,7 @@ import tweetContext from '../Context/tweetContext';
 import profileContext from '../Context/profileContext';
 
 export default function TweetState(props) {
+    const apiUrl = process.env.REACT_APP_API_URL;
   const context = useContext(profileContext);
   const { setUserTweets, userTweets } = context;
   const token = localStorage.getItem('token');
@@ -12,7 +13,7 @@ export default function TweetState(props) {
 //Get all Tweets
 const getAllTweets = async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/tweet/get-all-tweets', {
+        const response = await fetch(`${apiUrl}/api/tweet/get-all-tweets`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
@@ -28,7 +29,7 @@ const getAllTweets = async () => {
 //Repost Tweet
 const handleRepost = async (tweetId) => {
     try {
-        await fetch(`http://localhost:5000/api/tweet/repost-tweet/${tweetId}`, {
+        await fetch(`${apiUrl}/api/tweet/repost-tweet/${tweetId}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +44,7 @@ const handleRepost = async (tweetId) => {
 //Follow - Unfollow
 const handleFollow = async (followingId) => {
     try {
-        const response = await fetch(`http://localhost:5000/api/user/following/${followingId}`, {
+        const response = await fetch(`${apiUrl}/api/user/following/${followingId}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -65,7 +66,7 @@ const handleDelete = async (tweetId, index) => {
         setAllTweets(updatedAllTweets);
         setUserTweets(updatedUserTweets);
 
-        await fetch('http://localhost:5000/api/tweet/delete-tweet', {
+        await fetch(`${apiUrl}/api/tweet/delete-tweet`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",
@@ -122,7 +123,7 @@ const handleLike = async (tweetId, index) => {
             setAllTweets(updatedAllTweets);
             setUserTweets(updatedUserTweets);
         }
-        const response = await fetch(`http://localhost:5000/api/tweet/likeTweet/${tweetId}`, {
+        const response = await fetch(`${apiUrl}/api/tweet/likeTweet/${tweetId}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
