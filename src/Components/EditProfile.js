@@ -15,7 +15,6 @@ export default function Retweet() {
     const { setPressEditProfileBtn, profile } = context3;
     const [userCredentials, setuserCredentials] = useState({ name: profile.name, bio: profile.bio, location: profile.location, dob: profile.dob });
     const [image, setImage] = useState(null);
-    const [publicId, setPublicId] = useState('');
     const token = localStorage.getItem('token');
 
 
