@@ -57,6 +57,14 @@
     .big-logo {
         display: none;
     }
+
+    .pl-575 {
+        padding-inline-start: 32px;
+    }
+
+    .pl-max-575 {
+        padding-inline-start: 26px;
+    }
 }
 
 @media (min-width: 575px) {
@@ -65,7 +73,39 @@
         align-items: center;
         justify-content: center;
     }
+
+    .pl-min-575 {
+        padding: 6px;
+    }
 }
+
+
+/* For a tweet  */
+@media (max-width: 730px) {
+    .pl-575 {
+        padding-inline-start: 32px;
+    }
+
+    .pl-max-575 {
+        padding-inline-start: 26px;
+    }
+    .rwfsmsc{
+        width: 72%;
+        margin-left: 32px;
+    }
+}
+
+@media (min-width: 730px) {
+    .pl-min-575 {
+        padding: 6px;
+    }
+    .rwfbsc{
+        width: 80%;
+        margin-left: 12px;
+    }
+}
+
+/* ---------------- */
 
 @media (max-width: 575px) {
     .small-logo {
@@ -204,9 +244,6 @@
     background-color: transparent;
     height: 50px;
     color: rgb(238, 236, 236);
-    border-top: none;
-    border-right: none;
-    border-left: none;
     font-size: 20px;
 }
 

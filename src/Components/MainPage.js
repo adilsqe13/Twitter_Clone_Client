@@ -27,7 +27,7 @@ export default function MainPage(props) {
                 <div className="row">
                     <Navbar />
                     <BrowserRouter>
-                        <div className="col-3 border-right dna575"><LeftCol /></div>
+                        <div className="col-3 right-thin-border dna575"><LeftCol /></div>
                         <div className="col-lg-5 col-md-9 col-sm-9 wa375">
                             <Routes>
                                 <Route path='/' element={<Home />} />
@@ -35,7 +35,7 @@ export default function MainPage(props) {
                                 <Route path="/profile" element={<Profile />} />
                             </Routes>
                         </div>
-                        <div className="col-4 border-left dna991"><RightCol /></div>
+                        <div className="col-4 left-thin-border dna991"><RightCol /></div>
                     </BrowserRouter>
                 </div>
             </div>

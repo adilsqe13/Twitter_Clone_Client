@@ -30,6 +30,11 @@
     justify-content: end;
     align-items: center;
 }
+.dfjcat {
+    display: flex;
+    justify-content: center;
+    align-items: top;
+}
 
 .dfjlac {
     display: flex;
@@ -97,4 +102,15 @@
 }
 .pb-296{
     padding-bottom: 296px;
+}
+
+
+.bottom-thin-border {
+    box-shadow: 0 4px 4px -3px rgba(116, 115, 115, 0.5); 
+}
+.right-thin-border{
+    box-shadow: 4px 0 4px -3px rgba(116, 115, 115, 0.5); 
+}
+.left-thin-border {
+    box-shadow: -4px 0 4px -3px rgba(116, 115, 115, 0.5); 
 }

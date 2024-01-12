@@ -64,10 +64,6 @@
   top: 55px;
 }
 
-.border-right {
-  border-right: 1px solid rgb(114, 114, 114);
-}
-
 
 /* Media Query */
 @media (max-width: 1280px) {
