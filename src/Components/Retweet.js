@@ -28,32 +28,76 @@ export default function Retweet() {
     }
 
 const handleReply = async () => {
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("content", content);
-    formData.append("tweetId", tweet._id);
-
-    await axios.post(
-        `${apiUrl}/api/tweet/retweet`,
-        formData,
-        {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                "auth-token": token
+    if (image !== null) {
+        const formData = new FormData();
+        formData.append('file', image);
+        formData.append('upload_preset', 'my-preset');
+        formData.append('cloud_name', 'digcjdyd3');
+        const response = await axios.post(
+            `https://api.cloudinary.com/v1_1/digcjdyd3/image/upload`,
+            formData,
+            {
+                onUploadProgress: (progressEvent) => {
+                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    // setUploadPercent(percentCompleted + '%')
+                    console.log(percentCompleted);
+                },
+            }
+        );
+        await axios.post(
+            `${apiUrl}/api/tweet/retweet`,
+            {
+                content: content,
+                imageUrl: await response.data.secure_url,
+                public_id: await response.data.public_id,
+                tweetId: tweet._id,
             },
-        }
-    )
-        .then(response => {
-            if(response.data.success){
-                        setPressRetweetBtn(false);
-                        setHomeOpacity(1);
-                        window.location.reload();
-                    }
-        })
-        .catch(error => {
-            console.log(error);
-            showToast('Something went wrong', 'warn');
-        })
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": token
+                },
+            }
+        )
+            .then(response => {
+                if (response.data.success) {
+                    window.location.reload();
+                } else {
+                    showToast('Something went wrong', 'danger');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                showToast('Something went wrong', 'warn');
+            })
+
+        // If POST not including image
+    } else {
+        await axios.post(
+            `${apiUrl}/api/tweet/retweet`,
+            {
+                content: content,
+                imageUrl: image,
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": token,
+                },
+            }
+        )
+            .then(response => {
+                if (response.data.success) {
+                    window.location.reload();
+                } else {
+                    showToast('Something went wrong', 'danger');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                showToast('Something went wrong', 'warn');
+            })
+    }
 }
 
 useEffect(()=>{

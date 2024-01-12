@@ -25,7 +25,7 @@ export default function AllRetweets(props) {
                             <div className="col-1"><img className='rounded-circle ' width={40} height={40} src={item.profileImage} alt='img' /></div>
                             <div className="col-10 rwfsmsc rwfbsc bold fs-5 pl-575 retweets-bg-clr rounded-top ">
                                 <div className="row"><a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'><span className='text-black bolder fs-6'>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
-                                <div className="row"><span className='text-dark'>Replying to&nbsp;<a onClick={() => { getProfile(tweet.userId) }} href='/profile' className='text-primary bolder text-decoration-none'>@{tweet.username}</a></span></div>
+                                <div className="row"><span className='text-dark fs-6'>Replying to&nbsp;<a onClick={() => { getProfile(tweet.userId) }} href='/profile' className='text-primary bolder text-decoration-none'>@{tweet.username}</a></span></div>
                             </div>
 
                             <div className="col-1 bold fs-5 dfjcat">
@@ -43,8 +43,8 @@ export default function AllRetweets(props) {
                         <div className=" text-black bold margin-auto mt-0" >
                             <div className="row">
                                 <div className="col-1"></div>
-                                <div className=" py-2 rwfsmsc rwfbsc retweets-bg-clr col-10 pl-min-575 pl-max-575">
-                                    <span className="fs-6">{item.content}</span>
+                                <div className=" py-1 rwfsmsc rwfbsc retweets-bg-clr col-10 pl-min-575 pl-max-575">
+                                    <p className="fs-6 px-2 mt-1 ">{item.content}</p>
                                 </div>
                                 <div className="col-1"></div>
                             </div>

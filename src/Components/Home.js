@@ -19,13 +19,13 @@ export default function Home() {
     const { showToast } = context1;
     const { clickRetweetBtn, setPressRetweetBtn, setHomeOpacity } = context2;
     const { getAllTweets, allTweets, handleRepost, handleFollow, handleDelete, handleHide, handleLike } = context3;
-    const { getProfile, profile } = context4;
+    const { getProfile } = context4;
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
-    const profileImage = localStorage.getItem('profile-img');
     const [image, setImage] = useState(null);
     const [content, setContent] = useState('');
     const [tweetIndex, setTweetIndex] = useState('');
+    const [userProfileImage, setUserProfileImage] = useState('');
 
     const onInputChange = (e) => {
         setImage(e.target.files[0]);
@@ -34,6 +34,21 @@ export default function Home() {
         setContent(e.target.value);
     }
 
+    const getUser = async() =>{
+        try {
+            const response = await fetch(`${apiUrl}/api/user/get-a-user/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': token
+                },
+            });
+            const json = await response.json();
+            setUserProfileImage(json[0].image);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     const handlePost = async (e) => {
         // If POST including image
         if (image !== null) {
@@ -52,9 +67,6 @@ export default function Home() {
                     },
                 }
             );
-
-            //  localStorage.setItem('userImage', response.data.secure_url);
-            //  localStorage.setItem('profile-img', response.data.secure_url);
             await axios.post(
                 `${apiUrl}/api/tweet/post-tweet`,
                 {
@@ -98,7 +110,6 @@ export default function Home() {
             )
                 .then(response => {
                     if (response.data.success) {
-                        //  localStorage.setItem('userImage', response.data.image);
                         window.location.reload();
                     } else {
                         showToast('Something went wrong', 'danger');
@@ -121,6 +132,7 @@ export default function Home() {
     useEffect(() => {
         getAllTweets();
         getProfile(userId);
+        getUser();
     }, []);
     return (
         <>
@@ -131,7 +143,7 @@ export default function Home() {
             </div>
             <div className="row mt-2 py-2 bottom-thin-border px-3">
                 <div className="col-lg-1 d-flex justify-content-center">
-                    <img className='rounded-circle' width={45} height={45} src={profileImage} alt='img' />
+                    <img className='rounded-circle' width={45} height={45} src={userProfileImage} alt='img' />
                 </div>
                 <div className="col-lg-11">
                     <div className="row">
@@ -208,9 +220,11 @@ export default function Home() {
 
                                     {/* Repost */}
                                     <div className='col-4 dfjcac'>
+                                    <div className=" bold fs-5 w-50 mwfkro ">
                                         <a href='/home' onClick={() => { handleRepost(item._id) }} className='wx-10 bg-transparent border-0 text-secondary text-decoration-none' title='Repost'> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z" />
-                                        </svg> {item.RepostBy.length}</a>
+                                        </svg> <span className='fs-6'>{item.RepostBy.length}</span></a>
+                                        </div>
                                     </div>
 
                                     {/* Like a post */}
