@@ -2,13 +2,16 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import './Styles/LoginPage.css';
 import TwitterLogoX from './TwitterLogoX';
-import toastContext from '../CONTEXT/Context/toastContext'
+import toastContext from '../CONTEXT/Context/toastContext';
+import Spinner from './Spinner';
 
 export default function SignupPage(props) {
     const context = useContext(toastContext);
     const { showToast } = context;
     const [createAccount, setCreateAccount] = useState(false);
     const [image, setImage] = useState(null);
+    const [processing, setProcessing] = useState(false);
+    const [uploadPercent, setUploadPercent] = useState('');
     const [userCredentials, setuserCredentials] = useState({
         name: '',
         username: '',
@@ -18,6 +21,7 @@ export default function SignupPage(props) {
     });
 
     const handleSignup = async (e) => {
+        setProcessing(true);
         const apiUrl = process.env.REACT_APP_API_URL;
 
         const formData = new FormData();
@@ -32,8 +36,8 @@ export default function SignupPage(props) {
                 {
                     onUploadProgress: (progressEvent) => {
                         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                        // setUploadPercent(percentCompleted + '%')
-                        console.log(percentCompleted);
+                        setUploadPercent(percentCompleted + '%')
+                        
                     },
                 }
             );
@@ -58,14 +62,17 @@ export default function SignupPage(props) {
                         localStorage.setItem('userId', response.data.userId);
                         localStorage.setItem('username', response.data.username);
                         window.location.reload();
+                        setProcessing(false);
                     }
                 })
                 .catch(error => {
                     console.log(error);
                     showToast('Something went wrong', 'warn');
+                    setProcessing(false);
                 })
         } catch (err) {
             console.log(err);
+            setProcessing(false);
         }
     }
 
@@ -78,7 +85,7 @@ export default function SignupPage(props) {
 
     return (
         <>
-            <div className="container login-model py-3">
+            <div className="container login-model py-3 position-fixed">
                 <div className="row py-2">
                     <div className="col-5">
                         <button onClick={() => { props.setPressSignupBtn(false); props.setHomeOpacity(1) }} type="button" className="close text-white border-0 fs-4" aria-label="Close">
@@ -146,30 +153,34 @@ export default function SignupPage(props) {
                             <div>
                                 <div className="row mt-3">
                                     <div className="col d-flex justify-content-center">
-                                        <input onChange={onChange} value={userCredentials.name} type="text" id="userInput" name="name" placeholder="Full Name" />
+                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.name} type="text" id="userInput" name="name" placeholder="Full Name" />
                                     </div>
                                     <div className="col d-flex justify-content-center">
-                                        <input onChange={onChange} value={userCredentials.username} type="text" id="userInput" name="username" placeholder="Username" />
+                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.username} type="text" id="userInput" name="username" placeholder="Username" />
                                     </div>
                                     <div className="col d-flex justify-content-center">
-                                        <input onChange={onChange} value={userCredentials.email} type="text" id="userInput" name="email" placeholder="E-mail" />
+                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.email} type="email" autoComplete="username" id="userInput" name="email" placeholder="E-mail" />
                                     </div>
                                     <div className="col d-flex justify-content-center">
-                                        <input onChange={onChange} value={userCredentials.password} type="text" id="userInput" name="password" placeholder="Password" />
+                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.password} type="password" autoComplete="password" id="userInput" name="password" placeholder="Password" />
                                     </div>
                                     <div className="col d-flex justify-content-center">
-                                        <input onChange={onChange} value={userCredentials.location} type="text" id="userInput" name="location" placeholder="Location" />
+                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.location} type="text" id="userInput" name="location" placeholder="Location" />
                                     </div>
 
-                                    <div className="col d-flex justify-content-center mt-4">
-                                        <h6 className='text-danger'>Profile picture :</h6> &nbsp; &nbsp; &nbsp;
-                                        <input type="file" accept='image/*' onChange={onInputChange} />
+                                    <div className="row mt-4">
+                                        <div className="col-6 dfjcac"><span className='text-danger fs-6'>Profile Image :</span></div>
+                                        <div className="col-6 dfjcac"><input type="file" accept='image/*' onChange={onInputChange} /></div>
                                     </div>
                                 </div>
                                 <div className="row mt-4">
-                                    <div className="col d-flex justify-content-center">
-                                        <button onClick={() => { handleSignup() }} className='signUpWithGA' href='/'>Sign Up</button>
+                                    <div className="col-3"></div>
+                                    <div className="col-6 d-flex justify-content-center">
+                                        <button onClick={() => { handleSignup() }} className='signUpWithGA' href='/'>
+                                        { processing === true ? <Spinner height={25} width={25}/>:'Sign Up'}
+                                            </button>
                                     </div>
+                                    <div className="col-3 dfjlac"><span className='px-2 dfjcac text-danger'>{uploadPercent}</span></div>
                                 </div>
                             </div>
                         }

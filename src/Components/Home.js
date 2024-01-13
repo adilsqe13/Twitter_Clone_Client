@@ -8,6 +8,7 @@ import profileContext from '../CONTEXT/Context/profileContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import AllRetweets from './AllRetweets';
+import Spinner from './Spinner';
 
 
 export default function Home() {
@@ -26,6 +27,8 @@ export default function Home() {
     const [content, setContent] = useState('');
     const [tweetIndex, setTweetIndex] = useState('');
     const [userProfileImage, setUserProfileImage] = useState('');
+    const [processing, setProcessing] = useState(false);
+    const [uploadPercent, setUploadPercent] = useState('');
 
     const onInputChange = (e) => {
         setImage(e.target.files[0]);
@@ -34,7 +37,7 @@ export default function Home() {
         setContent(e.target.value);
     }
 
-    const getUser = async() =>{
+    const getUser = async () => {
         try {
             const response = await fetch(`${apiUrl}/api/user/get-a-user/${userId}`, {
                 method: 'GET',
@@ -51,6 +54,7 @@ export default function Home() {
     }
     const handlePost = async (e) => {
         // If POST including image
+        setProcessing(true);
         if (image !== null) {
             const formData = new FormData();
             formData.append('file', image);
@@ -62,8 +66,8 @@ export default function Home() {
                 {
                     onUploadProgress: (progressEvent) => {
                         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                        // setUploadPercent(percentCompleted + '%')
-                        console.log(percentCompleted);
+                        setUploadPercent(percentCompleted + '%')
+
                     },
                 }
             );
@@ -83,13 +87,16 @@ export default function Home() {
             )
                 .then(response => {
                     if (response.data.success) {
+                        setProcessing(false);
                         window.location.reload();
                     } else {
+                        setProcessing(false);
                         showToast('Something went wrong', 'danger');
                     }
                 })
                 .catch(error => {
                     console.log(error);
+                    setProcessing(false);
                     showToast('Something went wrong', 'warn');
                 })
 
@@ -110,13 +117,16 @@ export default function Home() {
             )
                 .then(response => {
                     if (response.data.success) {
+                        setProcessing(false);
                         window.location.reload();
                     } else {
+                        setProcessing(false);
                         showToast('Something went wrong', 'danger');
                     }
                 })
                 .catch(error => {
                     console.log(error);
+                    setProcessing(false);
                     showToast('Something went wrong', 'warn');
                 })
         }
@@ -154,8 +164,12 @@ export default function Home() {
                     <div className="row">
                         <div className="col mt-4">
                             <div className="row">
-                                <div className="col-9 "><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
-                                <div className="col-3 bg-black d-flex justify-content-end"><button disabled={content === '' && image === null} onClick={() => { handlePost() }} className='post'>Post</button></div>
+                                <div className="col-8 "><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
+                                <div className="col-4 bg-black d-flex justify-content-end">
+                                    <span className='px-2 dfjcac text-danger'>{uploadPercent}</span><button disabled={content === '' && image === null} onClick={() => { handlePost() }} className='post'>
+                                        { processing === true ? <Spinner height={25} width={25}/>:'Post'}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -220,10 +234,10 @@ export default function Home() {
 
                                     {/* Repost */}
                                     <div className='col-4 dfjcac'>
-                                    <div className=" bold fs-5 w-50 mwfkro ">
-                                        <a href='/home' onClick={() => { handleRepost(item._id) }} className='wx-10 bg-transparent border-0 text-secondary text-decoration-none' title='Repost'> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                            <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z" />
-                                        </svg> <span className='fs-6'>{item.RepostBy.length}</span></a>
+                                        <div className=" bold fs-5 w-50 mwfkro ">
+                                            <a href='/home' onClick={() => { handleRepost(item._id) }} className='wx-10 bg-transparent border-0 text-secondary text-decoration-none' title='Repost'> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M11 5.466V4H5a4 4 0 0 0-3.584 5.777.5.5 0 1 1-.896.446A5 5 0 0 1 5 3h6V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192Zm3.81.086a.5.5 0 0 1 .67.225A5 5 0 0 1 11 13H5v1.466a.25.25 0 0 1-.41.192l-2.36-1.966a.25.25 0 0 1 0-.384l2.36-1.966a.25.25 0 0 1 .41.192V12h6a4 4 0 0 0 3.585-5.777.5.5 0 0 1 .225-.67Z" />
+                                            </svg> <span className='fs-6'>{item.RepostBy.length}</span></a>
                                         </div>
                                     </div>
 

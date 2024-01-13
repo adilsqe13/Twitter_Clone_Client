@@ -4,6 +4,8 @@ import retweetContext from '../CONTEXT/Context/retweetContext';
 import axios from 'axios';
 import toastContext from '../CONTEXT/Context/toastContext';
 import profileContext from '../CONTEXT/Context/profileContext';
+import Spinner from './Spinner';
+
 
 export default function Retweet() {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -18,6 +20,8 @@ export default function Retweet() {
     const retweetProfilePic = localStorage.getItem('retweetProfilePic');
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
+    const [processing, setProcessing] = useState(false);
+    const [uploadPercent, setUploadPercent] = useState('');
 
 
     const onInputChange = (e) => {
@@ -28,6 +32,7 @@ export default function Retweet() {
     }
 
 const handleReply = async () => {
+    setProcessing(true);
     if (image !== null) {
         const formData = new FormData();
         formData.append('file', image);
@@ -39,8 +44,8 @@ const handleReply = async () => {
             {
                 onUploadProgress: (progressEvent) => {
                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    // setUploadPercent(percentCompleted + '%')
-                    console.log(percentCompleted);
+                    setUploadPercent(percentCompleted + '%')
+                    
                 },
             }
         );
@@ -48,8 +53,8 @@ const handleReply = async () => {
             `${apiUrl}/api/tweet/retweet`,
             {
                 content: content,
-                imageUrl: await response.data.secure_url,
-                public_id: await response.data.public_id,
+                imageUrl:  response.data.secure_url,
+                public_id: response.data.public_id,
                 tweetId: tweet._id,
             },
             {
@@ -62,23 +67,26 @@ const handleReply = async () => {
             .then(response => {
                 if (response.data.success) {
                     window.location.reload();
+                    setProcessing(false);
                 } else {
+                    setProcessing(false);
                     showToast('Something went wrong', 'danger');
                 }
             })
             .catch(error => {
                 console.log(error);
+                setProcessing(false);
                 showToast('Something went wrong', 'warn');
             })
 
         // If POST not including image
     } else {
-        console.log('hi');
         await axios.post(
             `${apiUrl}/api/tweet/retweet`,
             {
                 content: content,
                 imageUrl: image,
+                tweetId: tweet._id,
             },
             {
                 headers: {
@@ -90,12 +98,15 @@ const handleReply = async () => {
             .then(response => {
                 if (response.data.success) {
                     window.location.reload();
+                    setProcessing(false);
                 } else {
                     showToast('Something went wrong', 'danger');
+                    setProcessing(false);
                 }
             })
             .catch(error => {
                 console.log(error);
+                setProcessing(false);
                 showToast('Something went wrong', 'warn');
             })
     }
@@ -149,7 +160,11 @@ useEffect(()=>{
                             <div className="col">
                                 <input onChange={onChange} value={content} name='tweet' type="text" className='input-post' placeholder='Post your reply' />
                                 <div className="col-10 mt-3"><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
-                                <div className="col d-flex justify-content-end"><button disabled={ content === '' && image === null} onClick={() => { handleReply() }} className='reply'>Reply</button></div>
+                                <div className="col d-flex justify-content-end">
+                                <span className='px-2 dfjcac text-danger'>{uploadPercent}</span><button disabled={ content === '' && image === null} onClick={() => { handleReply() }} className='reply'>
+                                    { processing === true ? <Spinner height={25} width={25}/>:'Reply'}
+                                        </button>
+                                        </div>
                             </div>
                         </div>
                     </div>

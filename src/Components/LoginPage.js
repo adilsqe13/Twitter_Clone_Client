@@ -2,14 +2,17 @@ import React, { useState, useContext } from 'react';
 import './Styles/LoginPage.css';
 import TwitterLogoX from './TwitterLogoX';
 import toastContext from '../CONTEXT/Context/toastContext';
+import Spinner from './Spinner';
 
 export default function LoginPage(props) {
     const apiUrl = process.env.REACT_APP_API_URL;
     const context = useContext(toastContext);
     const { showToast } = context;
     const [userCredentials, setUserCredentials] = useState({ email: '', password: '' });
-    const handleLogin = async (e) => {
+    const [processing, setProcessing] = useState(false);
 
+    const handleLogin = async (e) => {
+setProcessing(true);
         const response = await fetch(`${apiUrl}/api/auth/user/login`, {
             method: 'POST',
             headers: {
@@ -26,11 +29,14 @@ export default function LoginPage(props) {
                 localStorage.setItem('profile-img', json.image);
                 localStorage.setItem('username', json.username);
                 window.location.reload();
+                setProcessing(false);
             } else {
                 showToast('Invalid Credentials', 'error');
+                setProcessing(false);
             }
         } catch (error) {
             console.log(error);
+            setProcessing(false);
         }
 
     }
@@ -39,7 +45,7 @@ export default function LoginPage(props) {
     }
     return (
         <>
-            <div className="container login-model py-3">
+            <div className="container login-model py-3 position-fixed">
                 <div className="row py-2">
                     <div className="col-5">
                         <button onClick={() => { props.setPressLoginBtn(false); props.setHomeOpacity(1) }} type="button" className="close text-white border-0 fs-4" aria-label="Close">
@@ -85,15 +91,17 @@ export default function LoginPage(props) {
                         </div>
                         <div className="row mt-3">
                             <div className="col d-flex justify-content-center">
-                                <input onChange={onChange} value={userCredentials.email} type="text" id="userInput" className='' name="email" placeholder="E-mail" />
+                                <input onChange={onChange} value={userCredentials.email} type="email" id="userInput" className='form-control input-field' autoComplete="username" name="email" placeholder="E-mail" />
                             </div>
                             <div className="col d-flex justify-content-center">
-                                <input onChange={onChange} value={userCredentials.password} type="text" id="userInput" className='' name="password" placeholder="Password" />
+                                <input type='password' autoComplete="password" onChange={onChange} value={userCredentials.password}  id="userInput" className='form-control input-field' name="password" placeholder="Password" />
                             </div>
                         </div>
                         <div className="row mt-4">
                             <div className="col d-flex justify-content-center">
-                                <button onClick={() => { handleLogin() }} className='signUpWithGA'>Next</button>
+                                <button onClick={() => { handleLogin() }} className='signUpWithGA'>
+                                { processing === true ? <Spinner height={25} width={25}/>:'Next'}
+                                    </button>
                             </div>
 
                         </div>

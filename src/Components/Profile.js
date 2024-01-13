@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faCalendarDays, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import './Styles/Profile.css';
 import profileContext from '../CONTEXT/Context/profileContext';
 import tweetContext from '../CONTEXT/Context/tweetContext';
 import retweetContext from '../CONTEXT/Context/retweetContext';
 import AllUserTweets from './AllUserTweets';
-
+import Spinner from './Spinner';
 
 export default function Profile() {
   const userId = localStorage.getItem('userId');
@@ -38,8 +38,7 @@ export default function Profile() {
       <div className="row h-125 bg-dark z-index-90 "></div>
       <div className="row h-125 z-index-90">
         <div className='col-4 position-relative'>
-          {profile.length !== 0 ? <img className='rounded-circle vpi' width={143} height={143} src={profile.image} alt='img' />
-            : 'loading'}
+          {(profile.length !== 0) && <img className='rounded-circle vpi' width={143} height={143} src={profile.image} alt=''/>}
           <div className="row h-72 bg-dark"></div>
           <div className="row h-72 bg-transparent"></div>
         </div>
@@ -57,21 +56,24 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="row bg-black z-index-90 mt-4">
+      <div className="row bg-black z-index-90 mt-4 mx-1">
         <span className='fs-5 off-bright bolder px-3'>{profile.name}</span>
         <span className='text-secondary'>@{profile.username}</span>
       </div>
 
-      <div className="row bg-black z-index-90 mt-3">
+      <div className="row bg-black z-index-90 mt-3 mx-1">
+        {profile.length !== 0 ? <span className='text-secondary'><FontAwesomeIcon icon={faLocationDot} /> &nbsp;Location: {profile.location}</span> : ''}
+      </div>
+      <div className="row bg-black z-index-90 mx-1">
         {profile.length !== 0 ? <span className='text-secondary'><FontAwesomeIcon icon={faCalendarDays} /> &nbsp;Joined {profile.date.slice(0, 10)}</span> : ''}
       </div>
 
-      <div className="row bg-black z-index-90 mt-2">
+      <div className="row bg-black z-index-90 mt-2 mx-1">
         <div className="col-4"><span className='text-secondary'><span className='text-light'>{profile.length !== 0 ? profile.following.length : 0} </span>Following</span></div>
         <div className="col-8"><span className='text-secondary'><span className='text-light'>{profile.length !== 0 ? profile.followers.length : 0} </span>Followers</span></div>
       </div>
 
-      <div className="row bg-black z-index-90 mt-4 border-bottom border-secondary py-2">
+      <div className="row bg-black z-index-90 mt-4 bottom-thin-border py-2 mx-1">
         <span className='fs-5 off-bright bold px-3'>Posts</span>
       </div>
 

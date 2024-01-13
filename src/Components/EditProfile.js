@@ -4,6 +4,7 @@ import retweetContext from '../CONTEXT/Context/retweetContext';
 import toastContext from '../CONTEXT/Context/toastContext';
 import profileContext from '../CONTEXT/Context/profileContext';
 import axios from 'axios';
+import Spinner from './Spinner';
 
 export default function Retweet() {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -16,6 +17,8 @@ export default function Retweet() {
     const [userCredentials, setuserCredentials] = useState({ name: profile.name, bio: profile.bio, location: profile.location, dob: profile.dob });
     const [image, setImage] = useState(null);
     const token = localStorage.getItem('token');
+    const [processing, setProcessing] = useState(false);
+    const [uploadPercent, setUploadPercent] = useState('');
 
 
     const onInputChange = (e) => {
@@ -26,8 +29,8 @@ export default function Retweet() {
     }
 
     const handleSave = async (e) => {
-
-   // If update including image
+        setProcessing(true);
+        // If update including image
         if (image !== null) {
             const formData = new FormData();
             formData.append('file', image);
@@ -39,12 +42,12 @@ export default function Retweet() {
                 {
                     onUploadProgress: (progressEvent) => {
                         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                        // setUploadPercent(percentCompleted + '%')
-                        console.log(percentCompleted);
+                        setUploadPercent(percentCompleted + '%')
+
                     },
                 }
             );
-       
+
             localStorage.setItem('userImage', response.data.secure_url);
             localStorage.setItem('profile-img', response.data.secure_url);
             await axios.put(
@@ -64,16 +67,19 @@ export default function Retweet() {
                 .then(response => {
                     if (response.data.success) {
                         window.location.reload();
+                        setProcessing(false);
                     } else {
                         showToast('Something went wrong', 'danger');
+                        setProcessing(false);
                     }
                 })
                 .catch(error => {
                     console.log(error);
+                    setProcessing(false);
                     showToast('Something went wrong', 'warn');
                 })
 
-                 // If update not including image
+            // If update not including image
         } else {
             await axios.put(
                 `${apiUrl}/api/user/edit-profile`,
@@ -92,28 +98,35 @@ export default function Retweet() {
                     if (response.data.success) {
                         localStorage.setItem('userImage', response.data.image);
                         window.location.reload();
+                        setProcessing(false);
                     } else {
                         showToast('Something went wrong', 'danger');
+                        setProcessing(false);
                     }
                 })
                 .catch(error => {
                     console.log(error);
                     showToast('Something went wrong', 'warn');
+                    setProcessing(false);
                 })
         }
-
+        window.scrollTo(0, 0);
     }
     return (
         <>
             <div className="container retweet-model">
-                <div className="row py-2">
+                <div className="row py-3">
                     <div className="col-1">
                         <button onClick={() => { setPressEditProfileBtn(false); setHomeOpacity(1) }} type="button" className="close text-white border-0 fs-4" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div className="col-9 bolder fs-5 off-bright dfjlac">&nbsp; &nbsp;<span>Edit profile</span></div>
-                    <div className="col-2 dfjcac"><button onClick={() => { handleSave() }} style={{ width: '70px', height: '35px' }} className='bg-light text-dark bolder border-radius-15'>Save</button></div>
+                    <div className="col-8 bolder fs-5 off-bright dfjlac">&nbsp; &nbsp;<span>Edit profile</span></div>
+                    <div className="col-3 dfjcac">
+                        <span className='px-2 dfjcac text-danger'>{uploadPercent}</span><button onClick={() => { handleSave() }} style={{ width: '70px', height: '35px' }} className='bg-light text-dark bolder border-radius-15'>
+                            {processing === true ? <Spinner height={25} width={25} /> : 'Save'}
+                        </button>
+                    </div>
                 </div>
 
                 <div className="row h-72 bg-dark z-index-90"></div>
@@ -125,8 +138,9 @@ export default function Retweet() {
                     </div>
                     <div className='col-8'>
                         <div className="row h-72 bg-dark"></div>
-                        <div className="row h-72 bg-black">
-                            <div className="col dfjeac"><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
+                        <div className="row h-72 bg-black ">
+                            <div className="col-2"></div>
+                            <div className="col-10 dfjeac"><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
                         </div>
                     </div>
                 </div>

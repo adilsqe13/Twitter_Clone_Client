@@ -22,6 +22,11 @@
     position: sticky;
     top: 50px;
 }
+.position-fixed{
+    position:fixed;
+    top:50%;
+    left:50%
+}
 
 .dfjcac {
     display: flex;
@@ -52,6 +57,9 @@
 
 .z-index-90 {
     z-index: 90;
+}
+.z-index-91 {
+    z-index: 91;
 }
 
 .z-index-100 {
