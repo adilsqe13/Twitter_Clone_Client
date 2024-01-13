@@ -89,8 +89,9 @@ const handleHide = async (tweetId, index) => {
 
 //Like a Tweet
 const handleLike = async (tweetId, index) => {
+    console.log(allTweets);
     try {
-        const tweet = allTweets.length>0 ? allTweets : userTweets .filter((tweet) => tweet._id === tweetId);
+        const tweet = allTweets.length !==0 ? allTweets.filter((e)=>{ return(e._id === tweetId)}) : userTweets.filter((e)=>{ return(e._id === tweetId)});
         const myId = await tweet[0].Likes.filter((id) => id === userId);
         if (myId.length === 0) {
             const updatedAllTweets = allTweets.map((obj, i) => {
@@ -114,7 +115,7 @@ const handleLike = async (tweetId, index) => {
                     Likes: i === index ? obj.Likes.filter(id => id !== userId) : obj.Likes
                 };
             });
-            const updatedUserTweets = userTweets.map((obj, i) => {
+            const updatedUserTweets =  userTweets.map((obj, i) => {
                 return {
                     ...obj,
                     Likes: i === index ? obj.Likes.filter(id => id !== userId) : obj.Likes
@@ -123,21 +124,17 @@ const handleLike = async (tweetId, index) => {
             setAllTweets(updatedAllTweets);
             setUserTweets(updatedUserTweets);
         }
-        const response = await fetch(`${apiUrl}/api/tweet/likeTweet/${tweetId}`, {
+         await fetch(`${apiUrl}/api/tweet/likeTweet/${tweetId}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": token
             },
         });
-        const json = await response.json();
-        console.log(json);
     } catch (error) {
         console.log(error);
     }
-
 }
-
 
   return (
     <>

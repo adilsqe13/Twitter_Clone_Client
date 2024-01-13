@@ -14,7 +14,7 @@ export default function Profile() {
   const context1 = useContext(profileContext);
   const context2 = useContext(tweetContext);
   const context3 = useContext(retweetContext);
-  const { profile, userTweets, setPressEditProfileBtn } = context1;
+  const { profile, userTweets, setPressEditProfileBtn } = context1; 
   const { handleFollow } = context2;
   const { setHomeOpacity } = context3;
 

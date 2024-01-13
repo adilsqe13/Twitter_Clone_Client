@@ -137,8 +137,8 @@ export default function Home() {
     return (
         <>
             <div className="row position-sticky-0 bg-black z-index-90 bottom-thin-border ">
-                <div className="col home py-3 px-3">
-                    <span>Home</span>
+                <div className="col home py-3 px-3 dnabsc10">
+                    <span className='fs-4 bold'>Home</span>
                 </div>
             </div>
             <div className="row mt-2 py-2 bottom-thin-border px-3">

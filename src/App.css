@@ -18,6 +18,10 @@
     position: sticky;
     top: 0px;
 }
+.position-sticky-50 {
+    position: sticky;
+    top: 50px;
+}
 
 .dfjcac {
     display: flex;
@@ -113,4 +117,8 @@
 }
 .left-thin-border {
     box-shadow: -4px 0 4px -3px rgba(116, 115, 115, 0.5); 
+}
+
+.height-user-list{
+    height: 100vh;
 }

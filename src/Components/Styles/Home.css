@@ -112,16 +112,17 @@
         align-items: center;
         justify-content: center;
     }
-}
-
-@media (min-width: 575px) {
-    .small-logo {
+    .dnabsc10{
         display: none;
     }
 }
+/* *{
+    border: 1px solid red;
+} */
+
 
 @media (min-width: 575px) {
-    .navbar {
+    .navbar, .second-navbar, .small-logo {
         display: none;
     }
 }

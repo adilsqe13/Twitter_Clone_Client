@@ -27,7 +27,7 @@ export default function ToastState(props) {
 
     const getUserTweets = async (userId) => {
         try {
-            const response = await fetch(`${apiUrl}/api/tweet/get-user-tweets/${userId}`, {
+            const response = await fetch(`${apiUrl}/api/tweet/get-user-tweets/${userId}`, { 
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

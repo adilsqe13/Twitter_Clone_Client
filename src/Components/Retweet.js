@@ -73,6 +73,7 @@ const handleReply = async () => {
 
         // If POST not including image
     } else {
+        console.log('hi');
         await axios.post(
             `${apiUrl}/api/tweet/retweet`,
             {
@@ -103,6 +104,7 @@ const handleReply = async () => {
 useEffect(()=>{
     getProfile(userId);
 },[]);
+
     return (
         <>
             <div className="container retweet-model">
