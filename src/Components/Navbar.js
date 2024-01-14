@@ -41,7 +41,7 @@ export default function Navbar() {
                 <div className="container-fluid  p-0">
                     <div className="row w-100 m-0">
                         <div className="col-4 dfjlac">
-                            <img className='rounded-circle' width={35} height={35} src={userProfileImage} alt='img' />
+                            <img className='rounded-circle' width={35} height={35} src={userProfileImage} alt='' />
                         </div>
                         <div className="col-4 dfjcac">
                             <a className="navbar-brand" href="/">

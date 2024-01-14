@@ -53,7 +53,7 @@ const handleReply = async () => {
             `${apiUrl}/api/tweet/retweet`,
             {
                 content: content,
-                imageUrl:  response.data.secure_url,
+                imageUrl:  response.data.version,
                 public_id: response.data.public_id,
                 tweetId: tweet._id,
             },
@@ -129,7 +129,7 @@ useEffect(()=>{
 
                 <div className="row mt-3 bg-black p-2 rounded-4">
                     <div className="col-3 dfjcac">
-                        <img className='rounded-circle ' width={55} height={55} src={retweetProfilePic} alt='img' />
+                        <img className='rounded-circle ' width={55} height={55} src={retweetProfilePic} alt='' />
                     </div>
                     <div className="col-9">
                         <div className="row bold">{tweetUser.name}</div>
@@ -153,12 +153,12 @@ useEffect(()=>{
 
                 <div className="row  py-4">
                     <div className="col-3 d-flex justify-content-center">
-                        <img className='rounded-circle ' width={55} height={55} src={profile.image} alt='img' />
+                        <img className='rounded-circle ' width={55} height={55} src={profile.image} alt='' />
                     </div>
                     <div className="col-9">
                         <div className="row">
                             <div className="col">
-                                <input onChange={onChange} value={content} name='tweet' type="text" className='input-post' placeholder='Post your reply' />
+                                <textarea  onChange={onChange} value={content} name='tweet' type="text" className=' resize-none border-0 off-bright  input-tweet-text' placeholder='Post your reply' />
                                 <div className="col-10 mt-3"><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
                                 <div className="col d-flex justify-content-end">
                                 <span className='px-2 dfjcac text-danger'>{uploadPercent}</span><button disabled={ content === '' && image === null} onClick={() => { handleReply() }} className='reply'>

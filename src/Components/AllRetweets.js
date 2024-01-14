@@ -22,7 +22,7 @@ export default function AllRetweets(props) {
                 return (
                     <div key={index} className="container px-0 my-4  ">
                         <div className="row ">
-                            <div className="col-1"><img className='rounded-circle ' width={40} height={40} src={item.profileImage} alt='img' /></div>
+                            <div className="col-1"><img className='rounded-circle ' width={40} height={40} src={item.profileImage} alt='' /></div>
                             <div className="col-10 rwfsmsc rwfbsc bold fs-5 pl-575 retweets-bg-clr rounded-top ">
                                 <div className="row"><a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'><span className='text-black bolder fs-6'>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
                                 <div className="row"><span className='text-dark fs-6'>Replying to&nbsp;<a onClick={() => { getProfile(tweet.userId) }} href='/profile' className='text-primary bolder text-decoration-none'>@{tweet.username}</a></span></div>
@@ -51,7 +51,7 @@ export default function AllRetweets(props) {
                             <div className="row">
                                 <div className="col-1"></div>
                                 <div className="col-10 retweets-bg-clr rwfsmsc rwfbsc py-2" >
-                                    {item.image && <img className=' rounded-3' width={150} height={200} src={item.image} alt='img' />}
+                                    {item.image && <img className=' rounded-3' width={150} height={200} src={`${process.env.REACT_APP_CLOUDINARY_API}/q_40/v${item.image}/${item.public_id}.jpg`} alt='' />}
                                 </div>
                                 <div className="col-1"></div>
                             </div>

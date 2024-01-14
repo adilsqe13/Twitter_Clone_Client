@@ -65,6 +65,11 @@
     .pl-max-575 {
         padding-inline-start: 26px;
     }
+    .fssc{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     
 }
 
@@ -77,6 +82,12 @@
 
     .pl-min-575 {
         padding: 6px;
+    }
+    .fssn{
+        display: none;
+    }
+    .dnam575{
+        display: none;
     }
 }
 
@@ -239,6 +250,14 @@
 .input-post {
     padding-top: 40px;
     padding-bottom: 40px;
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+    height: 50px;
+    color: rgb(238, 236, 236);
+    font-size: 20px;
+}
+.input-tweet-text{
     width: 100%;
     outline: none;
     background-color: transparent;

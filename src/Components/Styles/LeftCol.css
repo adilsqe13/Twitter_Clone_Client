@@ -25,6 +25,14 @@
   height: 51px;
   border-radius: 30px;
 }
+.min-width-25-100{
+  width: 25%;
+  min-width: 100px;
+}
+.min-width-100-50{
+  width: 100%;
+  min-width: 50px;
+}
 
 .side-bar-btn-style:hover {
   background-color: rgb(31, 30, 30);

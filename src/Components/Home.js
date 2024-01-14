@@ -60,6 +60,7 @@ export default function Home() {
             formData.append('file', image);
             formData.append('upload_preset', 'my-preset');
             formData.append('cloud_name', 'digcjdyd3');
+            formData.append('quality', '50');
             const response = await axios.post(
                 `https://api.cloudinary.com/v1_1/digcjdyd3/image/upload`,
                 formData,
@@ -67,7 +68,6 @@ export default function Home() {
                     onUploadProgress: (progressEvent) => {
                         const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
                         setUploadPercent(percentCompleted + '%')
-
                     },
                 }
             );
@@ -75,7 +75,7 @@ export default function Home() {
                 `${apiUrl}/api/tweet/post-tweet`,
                 {
                     content: content,
-                    imageUrl: await response.data.secure_url,
+                    imageUrl: await response.data.version,
                     public_id: await response.data.public_id,
                 },
                 {
@@ -151,26 +151,22 @@ export default function Home() {
                     <span className='fs-4 bold'>Home</span>
                 </div>
             </div>
-            <div className="row mt-2 py-2 bottom-thin-border px-3">
-                <div className="col-lg-1 d-flex justify-content-center">
-                    <img className='rounded-circle' width={45} height={45} src={userProfileImage} alt='img' />
+            <div className="row mt-2 py-2 bottom-thin-border">
+                <div className="col-1">
+                    <img className='rounded-circle' width={45} height={45} src={userProfileImage} alt='' />
                 </div>
-                <div className="col-lg-11">
+                <div className="col-11">
                     <div className="row">
-                        <div className="col">
-                            <input onChange={onChange} value={content} name='tweet' type="text" className='input-post fs-4 border-0' placeholder='What is happening?!' />
+                        <div className="col px-5">
+                            <textarea onChange={onChange} value={content} name='tweet' type="text" className=' resize-none border-0 off-bright fs-4  input-tweet-text' placeholder='What is happening?!' />
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="col mt-4">
-                            <div className="row">
-                                <div className="col-8 "><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
-                                <div className="col-4 bg-black d-flex justify-content-end">
-                                    <span className='px-2 dfjcac text-danger'>{uploadPercent}</span><button disabled={content === '' && image === null} onClick={() => { handlePost() }} className='post'>
-                                        { processing === true ? <Spinner height={25} width={25}/>:'Post'}
-                                    </button>
-                                </div>
-                            </div>
+                    <div className="row mt-5">
+                        <div className="col-8 "><input onChange={onInputChange} type="file" id="fileInput" accept="image/*" /></div>
+                        <div className="col-4 bg-black d-flex justify-content-end">
+                            <span className='px-2 dfjcac text-danger'>{uploadPercent}</span><button disabled={content === '' && image === null} onClick={() => { handlePost() }} className='post'>
+                                {processing === true ? <Spinner height={25} width={25} /> : 'Post'}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -179,14 +175,15 @@ export default function Home() {
                 return (
                     <div key={index} className="mt-4 px-0 bottom-thin-border py-2">
                         <div className="row">
-                            <div className="col-1"><img className='rounded-circle' width={40} height={40} src={item.userImage} alt='img' /></div>
+                            <div className="col-1">
+                                <img className='rounded-circle' width={40} height={40} src={item.userImage} alt='' />
+                                </div>
                             <div className="col-10 bold fs-5 pl-575">
-                                <div className="row"><a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'><span>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
+                                <div className="row w-100"><a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'><span>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
                                 <div className="row"><span className='fs-6 text-secondary bold-100'>Posted on {item.date.slice(0, 10)}</span></div>
                             </div>
                             <div className="col-1 bold fs-5 dfjeac">
                                 <div className="dropdown">
-
                                     <FontAwesomeIcon className='dropdown-toggle text-secondary cursor-pointer' data-bs-toggle="dropdown" icon={faEllipsis} />
                                     <ul className="dropdown-menu bg-black py-0 box-shadow-light">
                                         {item.userId === userId && <li><button onClick={() => { handleDelete(item._id, index) }} className="dropdown-item text-danger post-dropdown bolder">Delete Post</button></li>}
@@ -208,7 +205,7 @@ export default function Home() {
                         <div className="row mt-2">
                             <div className="col-1"></div>
                             <div className="col-10 pl-575 bg-transparent text-light" >
-                                {item.image && <img className='w-100 rounded-3 ' src={item.image} alt='img' />}
+                                {item.image && <img className='w-100 rounded-3 ' src={`${process.env.REACT_APP_CLOUDINARY_API}/q_40/v${item.image}/${item.public_id}.jpg`} alt='' />}
                             </div>
                             <div className="col-1"></div>
                         </div>

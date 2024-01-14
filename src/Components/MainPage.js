@@ -25,13 +25,13 @@ export default function MainPage(props) {
         <>
             {pressRetweetBtn && <Retweet />}
             {pressEditProfileBtn && <EditProfile />}
-            <div className="container-fluid bg-black pb-110 auto-height" style={opacity}>
-                <div className="row">
+            <div className="container-fluid bg-black pb-110 auto-height " style={opacity}>
+                <div className="row ">
                     <Navbar />
                     <BrowserRouter>
                     <Navbar2/>
-                        <div className="col-3 right-thin-border dna575"><LeftCol /></div>
-                        <div className="col-lg-5 col-md-9 col-sm-9 wa375">
+                        <div className="col-3 right-thin-border dna575 bg-black"><LeftCol /></div>
+                        <div className="col-lg-5 col-md-9 col-sm-9 wa375 ">
                             <Routes>
                                 <Route path='/' element={<Home />} />
                                 <Route path='/home' element={<Home />} />
@@ -39,7 +39,7 @@ export default function MainPage(props) {
                                 <Route path="/allUserList" element={<AllUserList />} />
                             </Routes>
                         </div>
-                        <div className="col-4 left-thin-border dna991"><RightCol /></div>
+                        <div className="col-4 left-thin-border dna991 hv-100 position-fixed-0-right"><RightCol /></div>
                     </BrowserRouter>
                 </div>
             </div>

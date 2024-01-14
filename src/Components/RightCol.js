@@ -81,15 +81,15 @@ export default function RightCol() {
                     </div>
                 </div>
             </div>
-            <div className="row mt-3 position-sticky-60">
-                <div className="col">
-                    <div className='pumf border-0'>
+            <div className="row mt-3">
+                <div className="col ">
+                    <div className='pumf border-0 hv-100'>
                         <h5 className='bolder'>Who to follow</h5>
                         {allUsers.map((item, index) => {
                             return (
                                 <div key={index} className="row mt-3 bg-black p-2 rounded-4">
                                     <div className="col-3 dfjcac">
-                                        <img className='rounded-circle ' width={45} height={45} src={item.image} alt='img' />
+                                        <img className='rounded-circle ' width={45} height={45} src={item.image} alt='' />
                                     </div>
                                     <div className="col-5">
                                         <a onClick={() => { getProfile(item._id) }} href='/profile' className='text-decoration-none text-light'><div className="row bold">{item.name}</div></a>

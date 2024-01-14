@@ -132,7 +132,7 @@ export default function Retweet() {
                 <div className="row h-72 bg-dark z-index-90"></div>
                 <div className="row h-151 z-index-90">
                     <div className='col-4 position-relative'>
-                        <img className='rounded-circle epi' width={133} height={133} src={profile.image} alt='img' />
+                        <img className='rounded-circle epi' width={133} height={133} src={profile.image} alt='' />
                         <div className="row h-72 bg-dark"></div>
                         <div className="row h-72 bg-black"></div>
                     </div>

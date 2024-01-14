@@ -29,7 +29,7 @@ export default function CoverPage() {
             {pressSignupBtn && <SignupPage setPressSignupBtn={setPressSignupBtn} setPressLoginBtn={setPressLoginBtn} setHomeOpacity={setHomeOpacity} />}
             {pressLoginBtn && <LoginPage setPressLoginBtn={setPressLoginBtn} setPressSignupBtn={setPressSignupBtn} setHomeOpacity={setHomeOpacity} />}
             <div className="container-fluid bg-black auto-height" style={opacity}>
-                <div className="row">
+                <div className="row  ">
                     <div className="col-lg-6 col-md-6 col-sm-6 big-logo">
                         <TwitterLogoX width={300} height={300} />
                     </div>
@@ -38,12 +38,12 @@ export default function CoverPage() {
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-6">
                         <div className="row heading">
-                            <div className="col ">
+                            <div className="col fssc">
                                 <span className='fs-1 bolder'>Happening now</span>
                             </div>
                         </div>
                         <div className="row jn">
-                            <div className="col">
+                            <div className="col fssc">
                                 <h2><span>Join today.</span></h2>
                             </div>
                         </div>

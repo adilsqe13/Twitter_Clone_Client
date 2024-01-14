@@ -28,7 +28,7 @@ export default function AllUserTweets() {
                 return (
                     <div key={index} className="mt-4 px-0 bottom-thin-border py-2">
                         <div className="row">
-                            <div className="col-1"><img className='rounded-circle' width={40} height={40} src={item.userImage} alt='img' /></div>
+                            <div className="col-1"><img className='rounded-circle' width={40} height={40} src={item.userImage} alt='' /></div>
                             <div className="col-10 bold fs-5 pl-575">
                                 <div className="row"><a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'><span>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
                                 <div className="row"><span className='fs-6 text-secondary bold-100'>Posted on {item.date.slice(0, 10)}</span></div>
@@ -57,7 +57,7 @@ export default function AllUserTweets() {
                         <div className="row mt-2">
                             <div className="col-1"></div>
                             <div className="col-10 pl-575 bg-transparent text-light" >
-                                {item.image && <img className='w-100 rounded-3 ' src={item.image} alt='img' />}
+                                {item.image && <img className='w-100 rounded-3 ' src={`${process.env.REACT_APP_CLOUDINARY_API}/q_40/v${item.image}/${item.public_id}.jpg`} alt='' />}
                             </div>
                             <div className="col-1"></div>
                         </div>

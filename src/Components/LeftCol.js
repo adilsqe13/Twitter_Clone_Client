@@ -40,12 +40,12 @@ export default function LeftCol() {
     return (
         <>
             {/* Left Col */}
-            <div className="row position-sticky-0 z-index-100 bg-black">
+            <div className="row position-sticky-10 z-index-100 bg-black">
                 <div className="col p-left">
                     <TwitterLogoX height={27} width={27} />
                 </div>
             </div>
-            <div className="row position-sticky-55">
+            <div className="row position-fixed-55 bg-black min-width-25-100">
                 <div className="col p-left">
                     <a className='side-bar-btn' href='/home'>
                         <div className="row side-bar-btn-style">
@@ -136,7 +136,7 @@ export default function LeftCol() {
                         </div>
                     </div></a>
 
-                    <a className='side-bar-btn' href='/'><div className="row side-bar-btn-style">
+                    <a className='side-bar-btn' href='/'><div className="row side-bar-btn-style min-width-100-50">
                         <div className="col-2 left-box-menu">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">
                                 <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
@@ -156,14 +156,14 @@ export default function LeftCol() {
                         <div className="col ">
                             <div className="row logout-btn">
                                 <div className="col-3 ">
-                                    <img className='rounded-circle ' width={45} height={45} src={profileImage} alt='img' />
+                                    <img className='rounded-circle ' width={45} height={45} src={profileImage} alt='' />
                                 </div>
                                 <div className="col-7">
                                     <div className="row">
                                         <div className="col d-flex justify-content-left"><a className='text-decoration-none' href='/home'><span className='text-light'>@{username}</span></a></div>
                                     </div>
                                     <div className="row">
-                                        <a href='/' onClick={() => { handleLogout() }} className="col d-flex justify-content-left bg-transparent border-0 text-primary bold text-decoration-none">Logout</a>
+                                        <a href='/' onClick={() => { handleLogout() }} className=" d-flex justify-content-left bg-transparent w-50 text-primary bold text-decoration-none">Logout</a>
                                     </div>
                                 </div>
                                 <div className="col-2 dna750">
