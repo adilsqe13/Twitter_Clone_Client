@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './Styles/RightCol.css';
 import profileContext from '../CONTEXT/Context/profileContext';
+import Spinner from './Spinner';
 
 export default function RightCol() {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -85,6 +86,7 @@ export default function RightCol() {
                 <div className="col ">
                     <div className='pumf border-0 hv-100'>
                         <h5 className='bolder'>Who to follow</h5>
+                        {allUsers.length === 0 ? <div className='mt-5'><Spinner height={50} width={50} /></div> : ''}
                         {allUsers.map((item, index) => {
                             return (
                                 <div key={index} className="row mt-3 bg-black p-2 rounded-4">

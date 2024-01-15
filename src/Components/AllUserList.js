@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import profileContext from '../CONTEXT/Context/profileContext';
+import Spinner from './Spinner';
 
 export default function AllUserList() {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -67,6 +68,7 @@ export default function AllUserList() {
     <>
                     <div className='container-fluid pumf w-100 mt-3 hv-100'>
                         <h5 className='bolder'>Peoples you may follow</h5>
+                        {allUsers.length === 0 ? <div className='margin-top-100'><Spinner height={70} width={70} /></div> : ''}
                         {allUsers.map((item, index) => {
                             return (
                                 <div key={index} className="row mt-3 bg-black p-2 rounded-4">

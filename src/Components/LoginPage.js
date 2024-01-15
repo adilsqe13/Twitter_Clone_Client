@@ -91,10 +91,10 @@ setProcessing(true);
                         </div>
                         <div className="row mt-3">
                             <div className="col d-flex justify-content-center">
-                                <input onChange={onChange} value={userCredentials.email} type="email" id="userInput" className='form-control input-field' autoComplete="username" name="email" placeholder="E-mail" />
+                                <input onChange={onChange} value={userCredentials.email} type="email" id="userInput" className='rounded-2' autoComplete="username" name="email" placeholder="E-mail" />
                             </div>
-                            <div className="col d-flex justify-content-center">
-                                <input type='password' autoComplete="password" onChange={onChange} value={userCredentials.password}  id="userInput" className='form-control input-field' name="password" placeholder="Password" />
+                            <div className="col d-flex justify-content-center mt-2">
+                                <input type='password' autoComplete="password" onChange={onChange} value={userCredentials.password}  id="userInput" className='rounded-2' name="password" placeholder="Password" />
                             </div>
                         </div>
                         <div className="row mt-4">

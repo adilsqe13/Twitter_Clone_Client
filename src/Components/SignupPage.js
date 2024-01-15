@@ -153,19 +153,19 @@ export default function SignupPage(props) {
                             <div>
                                 <div className="row mt-3">
                                     <div className="col d-flex justify-content-center">
-                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.name} type="text" id="userInput" name="name" placeholder="Full Name" />
+                                        <input className='rounded-2' onChange={onChange} value={userCredentials.name} type="text" id="userInput" name="name" placeholder="Full Name" />
                                     </div>
-                                    <div className="col d-flex justify-content-center">
-                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.username} type="text" id="userInput" name="username" placeholder="Username" />
+                                    <div className="col d-flex justify-content-center mt-2">
+                                        <input className='rounded-2' onChange={onChange} value={userCredentials.username} type="text" id="userInput" name="username" placeholder="Username" />
                                     </div>
-                                    <div className="col d-flex justify-content-center">
-                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.email} type="email" autoComplete="username" id="userInput" name="email" placeholder="E-mail" />
+                                    <div className="col d-flex justify-content-center mt-2">
+                                        <input className='rounded-2' onChange={onChange} value={userCredentials.email} type="email" autoComplete="username" id="userInput" name="email" placeholder="E-mail" />
                                     </div>
-                                    <div className="col d-flex justify-content-center">
-                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.password} type="password" autoComplete="password" id="userInput" name="password" placeholder="Password" />
+                                    <div className="col d-flex justify-content-center mt-2">
+                                        <input className='rounded-2' onChange={onChange} value={userCredentials.password} type="password" autoComplete="password" id="userInput" name="password" placeholder="Password" />
                                     </div>
-                                    <div className="col d-flex justify-content-center">
-                                        <input className='form-control input-field' onChange={onChange} value={userCredentials.location} type="text" id="userInput" name="location" placeholder="Location" />
+                                    <div className="col d-flex justify-content-center mt-2">
+                                        <input className='rounded-2' onChange={onChange} value={userCredentials.location} type="text" id="userInput" name="location" placeholder="Location" />
                                     </div>
 
                                     <div className="row mt-4">
