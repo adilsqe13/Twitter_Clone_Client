@@ -181,7 +181,10 @@ export default function Home() {
                                 <img className='rounded-circle' width={40} height={40} src={item.userImage} alt='' />
                             </div>
                             <div className="col-10 bold fs-5 pl-575">
-                                <div className="row w-100"><a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'><span>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span></a></div>
+                                <div className="row w-100">
+                                    <a onClick={() => { getProfile(item.userId) }} className='text-decoration-none text-light' href='/profile'>
+                                        <span>{item.name}&nbsp;<span className='text-secondary fs-6'>@{item.username}</span></span>
+                                    </a></div>
                                 <div className="row"><span className='fs-6 text-secondary bold-100'>Posted on {item.date.slice(0, 10)}</span></div>
                             </div>
                             <div className="col-1 bold fs-5 dfjeac">
@@ -214,7 +217,7 @@ export default function Home() {
                         <div className="row mt-2">
                             <div className="col-1"></div>
                             <div className="col-10 pl-575" >
-                                <div className="row px-2">
+                                <div className="row px-3">
 
                                     {/* Retweet */}
                                     <div className='col-4 dfjlac p-0 '>

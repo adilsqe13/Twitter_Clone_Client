@@ -7,7 +7,6 @@ import profileContext from '../CONTEXT/Context/profileContext';
 import tweetContext from '../CONTEXT/Context/tweetContext';
 import retweetContext from '../CONTEXT/Context/retweetContext';
 import AllUserTweets from './AllUserTweets';
-import Spinner from './Spinner';
 
 export default function Profile() {
   const userId = localStorage.getItem('userId');
@@ -76,7 +75,6 @@ export default function Profile() {
       <div className="row bg-black z-index-90 mt-4 bottom-thin-border py-2 mx-1">
         <span className='fs-5 off-bright bold px-3'>Posts</span>
       </div>
-
       {userTweets.length !== 0 ? <AllUserTweets /> : <div className='text-secondary dfjcac mt-3 pb-110'>No posts</div>}
     </>
   )
