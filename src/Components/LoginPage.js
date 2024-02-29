@@ -12,16 +12,17 @@ export default function LoginPage(props) {
     const [processing, setProcessing] = useState(false);
 
     const handleLogin = async (e) => {
-setProcessing(true);
-        const response = await fetch(`${apiUrl}/api/auth/user/login`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: userCredentials.email, password: userCredentials.password })
-        });
-
+        setProcessing(true);
         try {
+            const response = await fetch(`${apiUrl}/api/auth/user/login`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: userCredentials.email, password: userCredentials.password })
+            });
+
+
             const json = await response.json();
             if (json.success) {
                 localStorage.setItem('token', json.authToken);
@@ -94,14 +95,14 @@ setProcessing(true);
                                 <input onChange={onChange} value={userCredentials.email} type="email" id="userInput" className='rounded-2' autoComplete="username" name="email" placeholder="E-mail" />
                             </div>
                             <div className="col d-flex justify-content-center mt-2">
-                                <input type='password' autoComplete="password" onChange={onChange} value={userCredentials.password}  id="userInput" className='rounded-2' name="password" placeholder="Password" />
+                                <input type='password' autoComplete="password" onChange={onChange} value={userCredentials.password} id="userInput" className='rounded-2' name="password" placeholder="Password" />
                             </div>
                         </div>
                         <div className="row mt-4">
                             <div className="col d-flex justify-content-center">
                                 <button onClick={() => { handleLogin() }} className='signUpWithGA'>
-                                { processing === true ? <Spinner height={25} width={25}/>:'Next'}
-                                    </button>
+                                    {processing === true ? <Spinner height={25} width={25} /> : 'Next'}
+                                </button>
                             </div>
 
                         </div>

@@ -51,7 +51,13 @@ export default function LoginSignupBtn(props) {
             </div>
             <div className="row fssc">
                 <button onClick={() => { props.setPressLoginBtn(true); props.setPressSignupBtn(false); props.setHomeOpacity(0.8); }} className='signInBtn mt-2' href='/'>Sign in</button>
-
+            </div>
+            <div className="row mt-3">
+                <div className="col-3">
+                    <span className='text-warning'> Try Demo Account:</span>
+                </div>
+                <div className="col-5">Email: <span className='text-info'>demo@gmail.com</span></div>
+                <div className="col-4">Password: <span className='text-info'>demo123</span></div>
             </div>
         </>
     )
